@@ -1,0 +1,6 @@
+{
+  "name": "Unstuck",
+  "description": "A lightweight study companion to turn classroom confusion into better questions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
