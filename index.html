@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Unstuck — Turn Confusion into Better Questions</title>
     <meta name="description" content="A learning support tool to help students identify what they don't understand and prepare clear questions." />
-    
+
     <!-- Google Fonts: Plus Jakarta Sans for clean, warm readability -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Vanilla CSS Stylesheet -->
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <div class="app-container">
-      
+
       <!-- ============================================================
            VIEW 1: HOME — MY CONFUSIONS
            ============================================================ -->
@@ -33,13 +33,11 @@
           </div>
         </header>
 
-        <!-- List of Saved Confusion Cards -->
         <main>
           <div id="confusions-list" class="cards-list" role="list">
             <!-- Dynamic cards injected via script.js -->
           </div>
 
-          <!-- Empty State Container -->
           <div id="empty-state" class="empty-state" style="display: none;">
             <p class="empty-state-text">
               Nothing here yet. Capture something confusing from your next class!
@@ -49,34 +47,182 @@
             </button>
           </div>
 
-          <!-- Reset Sample Data Link in Footer -->
           <div class="home-footer-actions">
-            <span id="btn-reset-data" class="link-subtle" role="button" tabindex="0">
+            <button id="btn-reset-data" class="link-subtle" type="button">
               Reset Sample Confusions
-            </span>
+            </button>
           </div>
         </main>
       </section>
 
       <!-- ============================================================
-           VIEW 2: CAPTURE — ADD CONFUSION (In-Class Fast Log)
+           VIEW 2: INDIVIDUAL CONFUSION WORKSPACE OVERVIEW
            ============================================================ -->
-      <section id="view-add" class="view" aria-labelledby="add-title">
-        <button id="btn-back-from-add" class="back-link" type="button">
-          ← Back to My Confusions
+      <section id="view-workspace" class="view" aria-labelledby="workspace-title">
+        <button id="btn-back-from-workspace" class="back-link" type="button">
+          ← My Confusions
         </button>
 
-        <header class="app-header">
-          <h2 id="add-title" class="app-title">Capture Confusion</h2>
-          <p class="app-subtitle">Quickly leave a clue while in class. You can clarify later.</p>
+        <!-- Confusion Header Card -->
+        <div class="detail-header-card">
+          <div class="card-top-row" style="margin-bottom: 6px;">
+            <span id="workspace-source-badge" class="detail-source-tag">Slides / PPT</span>
+            <span id="workspace-activity-date" class="card-date-time"></span>
+          </div>
+          <h2 id="workspace-title" class="detail-original-note">Slide 12 — Schema Theory</h2>
+        </div>
+
+        <!-- Clickable Understanding Status Section -->
+        <button
+          type="button"
+          id="btn-open-understanding"
+          class="workspace-status-card"
+          aria-label="Open Understanding Check"
+        >
+          <div class="workspace-status-left">
+            <span class="workspace-status-heading">Understanding Status</span>
+            <div class="workspace-status-meta">
+              <span id="workspace-understanding-badge" class="status-badge status-not-reviewed">Not Checked Yet</span>
+              <span id="workspace-understanding-date" class="workspace-status-date"></span>
+            </div>
+          </div>
+          <span class="workspace-status-arrow" aria-hidden="true">›</span>
+        </button>
+
+        <!-- Four Learning Stages Navigation -->
+        <div class="workspace-journey-section">
+          <div class="workspace-section-header">
+            <h3 class="workspace-section-title">Your Learning Journey</h3>
+          </div>
+
+          <div id="workspace-stages-grid" class="workspace-stages-grid">
+            <button type="button" class="stage-tile" data-stage="capture">
+              <div class="stage-tile-top">
+                <span class="stage-num">01</span>
+                <span id="stage-status-capture" class="stage-check-icon" aria-hidden="true"></span>
+              </div>
+              <div class="stage-tile-title">Capture</div>
+              <div class="stage-tile-sub">Record confusion</div>
+            </button>
+
+            <button type="button" class="stage-tile" data-stage="clarify">
+              <div class="stage-tile-top">
+                <span class="stage-num">02</span>
+                <span id="stage-status-clarify" class="stage-check-icon" aria-hidden="true"></span>
+              </div>
+              <div class="stage-tile-title">Clarify</div>
+              <div class="stage-tile-sub">Identify your gap</div>
+            </button>
+
+            <button type="button" class="stage-tile" data-stage="act">
+              <div class="stage-tile-top">
+                <span class="stage-num">03</span>
+                <span id="stage-status-act" class="stage-check-icon" aria-hidden="true"></span>
+              </div>
+              <div class="stage-tile-title">Act</div>
+              <div class="stage-tile-sub">Plan your approach</div>
+            </button>
+
+            <button type="button" class="stage-tile" data-stage="reflect">
+              <div class="stage-tile-top">
+                <span class="stage-num">04</span>
+                <span id="stage-status-reflect" class="stage-check-icon" aria-hidden="true"></span>
+              </div>
+              <div class="stage-tile-title">Reflect</div>
+              <div class="stage-tile-sub">Evaluate and adjust</div>
+            </button>
+          </div>
+
+          <p class="workspace-journey-helper">
+            Choose any stage to view or update your work. Checkmarks indicate recorded activities, not mastery.
+          </p>
+
+          <div class="workspace-actions-stack">
+            <button type="button" id="btn-continue-learning" class="btn btn-primary btn-block">
+              Continue Learning →
+            </button>
+            <button type="button" id="btn-open-revisit" class="btn btn-secondary btn-block">
+              Quick Revisit
+            </button>
+          </div>
+        </div>
+
+        <!-- Overview — Why This Matters -->
+        <div class="why-matters-box" data-section="why-this-matters">
+          <button
+            type="button"
+            class="why-matters-toggle js-why-toggle"
+            aria-expanded="false"
+            aria-controls="why-panel-overview"
+          >
+            <span class="why-matters-label">
+              <span>Why This Matters</span>
+              <span class="info-icon-circle" aria-hidden="true">i</span>
+            </span>
+            <span class="why-matters-chevron" aria-hidden="true">▾</span>
+          </button>
+
+          <div id="why-panel-overview" class="why-matters-panel" style="display: none;">
+            <p class="why-matters-text">
+              Unstuck guides you from noticing confusion to identifying knowledge gaps, choosing learning strategies, evaluating what worked, and adjusting your next steps. You can move through the stages at your own pace.
+            </p>
+            <div class="why-matters-references" data-future-references="true" hidden></div>
+          </div>
+        </div>
+
+        <div class="detail-bottom-row">
+          <button id="btn-delete-confusion" class="btn btn-danger btn-sm" type="button">
+            Delete this confusion
+          </button>
+          <button id="btn-workspace-home" class="btn btn-secondary btn-sm" type="button">
+            Back to My Confusions
+          </button>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           VIEW 3: STAGE 01 — CAPTURE (New & Existing Confusion)
+           ============================================================ -->
+      <section id="view-capture" class="view" aria-labelledby="capture-stage-title">
+        <div class="stage-top-bar">
+          <button id="btn-back-top-capture" class="back-link" type="button" style="margin-bottom: 0;">
+            ← Back to Overview
+          </button>
+          <span id="save-status-capture" class="autosave-indicator" aria-live="polite"></span>
+        </div>
+
+        <header class="app-header stage-header">
+          <span class="step-badge">STAGE 01</span>
+          <h2 id="capture-stage-title" class="app-title">Capture</h2>
+          <p class="app-subtitle">
+            In class and short on time? Jot down a few keywords now and add details later.
+          </p>
+
+          <!-- Why This Matters (Capture) -->
+          <div class="why-matters-inline" data-section="why-this-matters">
+            <button
+              type="button"
+              class="why-matters-inline-btn js-why-toggle"
+              aria-expanded="false"
+              aria-controls="why-panel-capture"
+            >
+              <span class="info-icon-circle" aria-hidden="true">i</span>
+              <span>Why This Matters</span>
+              <span class="why-matters-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div id="why-panel-capture" class="why-matters-inline-panel" style="display: none;">
+              <p class="why-matters-text">
+                Capturing confusion early preserves information you can return to later, even when you are not ready to explain the problem.
+              </p>
+              <div class="why-matters-references" data-future-references="true" hidden></div>
+            </div>
+          </div>
         </header>
 
-        <form id="form-add-confusion" class="card">
-          <!-- Question 1: Source Category -->
+        <div class="card">
           <div class="form-section">
-            <label class="form-label">Where did you get confused?</label>
-            <p class="form-helper">Pick one source, or skip if you're not sure.</p>
-            <div id="category-pills" class="category-pill-grid">
+            <label class="form-label" style="margin-bottom: 12px;">Where did you get confused?</label>
+            <div id="capture-category-pills" class="category-pill-grid">
               <button type="button" class="category-btn" data-category="Teacher's Explanation">
                 Teacher's Explanation
               </button>
@@ -98,71 +244,92 @@
             </div>
           </div>
 
-          <!-- Question 2: Quick Note -->
-          <div class="form-section">
-            <label for="input-quick-note" class="form-label">Leave yourself a clue *</label>
-            <p class="form-helper">A keyword, slide number, or short note is enough.</p>
+          <div class="form-section" style="margin-bottom: 0;">
+            <label for="capture-input-note" class="form-label">Leave yourself a clue</label>
+            <p class="form-helper">
+              A keyword, slide number, or short note can help you recall this moment later.
+            </p>
             <input
               type="text"
-              id="input-quick-note"
+              id="capture-input-note"
               class="text-input"
               placeholder="e.g., Slide 12, Schema Theory, John's example..."
               required
               autocomplete="off"
             />
+            <p id="capture-captured-time" class="form-helper" style="margin-top: 8px; margin-bottom: 0; display: none;"></p>
           </div>
+        </div>
 
-          <!-- Actions -->
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">
-              Save Confusion
-            </button>
-            <button type="button" id="btn-cancel-add" class="btn btn-secondary">
-              Cancel
-            </button>
-          </div>
-        </form>
+        <nav class="stage-nav-row" aria-label="Capture navigation">
+          <button id="btn-capture-back" class="btn btn-secondary" type="button">
+            Back to Overview
+          </button>
+          <button id="btn-capture-next" class="btn btn-primary" type="button">
+            Next: Clarify →
+          </button>
+        </nav>
       </section>
 
       <!-- ============================================================
-           VIEW 3: CLARIFY — CONFUSION DETAIL & REFLECTION
+           VIEW 4: STAGE 02 — CLARIFY (Metacognitive Monitoring — 2 Steps)
            ============================================================ -->
-      <section id="view-detail" class="view" aria-labelledby="detail-title">
-        <button id="btn-back-from-detail" class="back-link" type="button">
-          ← Back to My Confusions
-        </button>
+      <section id="view-clarify" class="view" aria-labelledby="clarify-title">
+        <div class="stage-top-bar">
+          <button id="btn-back-top-clarify" class="back-link" type="button" style="margin-bottom: 0;">
+            ← Back to Overview
+          </button>
+          <span id="save-status-clarify" class="autosave-indicator" aria-live="polite"></span>
+        </div>
 
-        <!-- Header Card displaying Original Note -->
+        <!-- Context Header Card -->
         <div class="detail-header-card">
           <div class="card-top-row" style="margin-bottom: 6px;">
-            <span id="detail-source-badge" class="detail-source-tag">Slides / PPT</span>
-            <span id="detail-datetime-badge" class="card-date-time">Oct 12, 2026 · 2:15 PM</span>
+            <span id="clarify-source-badge" class="detail-source-tag">Slides / PPT</span>
+            <span id="clarify-datetime-badge" class="card-date-time"></span>
           </div>
-          <h2 id="detail-original-note" class="detail-original-note">Slide 12 — Schema Theory</h2>
+          <h2 id="clarify-original-note" class="detail-original-note">Slide 12 — Schema Theory</h2>
         </div>
 
-        <div class="clarify-intro">
-          <h3 id="detail-title" class="clarify-title">Let's figure out what you want to ask.</h3>
+        <header class="clarify-intro">
+          <div class="card-step-header" style="margin-bottom: 6px;">
+            <span class="step-badge">STAGE 02</span>
+          </div>
+          <h3 id="clarify-title" class="clarify-title">Clarify</h3>
           <p class="clarify-desc">
-            You don't have to answer everything. The more you share, the more specific your question and suggestions can be.
+            Identify what you know and pinpoint where your understanding breaks down.
           </p>
-        </div>
 
-        <!-- ----------------------------------------------------------
-             QUESTION 1: IDENTIFY (What do you understand so far?)
-             ---------------------------------------------------------- -->
+          <!-- Why This Matters (Clarify) -->
+          <div class="why-matters-inline" data-section="why-this-matters">
+            <button
+              type="button"
+              class="why-matters-inline-btn js-why-toggle"
+              aria-expanded="false"
+              aria-controls="why-panel-clarify"
+            >
+              <span class="info-icon-circle" aria-hidden="true">i</span>
+              <span>Why This Matters</span>
+              <span class="why-matters-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div id="why-panel-clarify" class="why-matters-inline-panel" style="display: none;">
+              <p class="why-matters-text">
+                Metacognitive monitoring helps you recognize what you understand and identify the specific gaps that need attention.
+              </p>
+              <div class="why-matters-references" data-future-references="true" hidden></div>
+            </div>
+          </div>
+        </header>
+
+        <!-- STEP 1: What do you understand so far? -->
         <article class="reflection-card">
           <div class="card-step-header">
             <span class="step-badge">STEP 1</span>
-            <span class="optional-pill">Optional</span>
           </div>
           <h4 class="reflection-card-title">What do you understand so far?</h4>
-          <p class="reflection-card-desc">
-            Write down anything you understand about this topic, even if it's incomplete.
-          </p>
           <div class="reflection-card-subhelper">
-            <span class="subhelper-icon">💡</span>
-            <span>Start with what you know, even if it's just one small thing.</span>
+            <span class="subhelper-icon" aria-hidden="true">💡</span>
+            <span>Start with one small thing you know, such as a related concept, an opposite idea, or an example you've seen.</span>
           </div>
           <textarea
             id="q1-textarea"
@@ -170,30 +337,20 @@
             placeholder="I understand that..."
             rows="3"
           ></textarea>
-          <label class="checkbox-row">
-            <input type="checkbox" id="q1-unsure-checkbox" />
-            <span>I'm not sure where to start.</span>
-          </label>
         </article>
 
-        <!-- ----------------------------------------------------------
-             QUESTION 2: CLARIFY (Where are you getting stuck?)
-             ---------------------------------------------------------- -->
+        <!-- STEP 2: Where are you getting stuck? -->
         <article class="reflection-card">
           <div class="card-step-header">
             <span class="step-badge">STEP 2</span>
             <span class="step-guide-pill">Select up to 2</span>
           </div>
           <h4 class="reflection-card-title">Where are you getting stuck?</h4>
-          <p class="reflection-card-desc">
-            Click a keyword to explore options. You can select up to two statements across categories.
-          </p>
           <div class="reflection-card-subhelper">
-            <span class="subhelper-icon">💡</span>
-            <span>You don't need to know why you're confused. Just identify what feels unclear.</span>
+            <span class="subhelper-icon" aria-hidden="true">💡</span>
+            <span>Look for the missing piece: Is it a term you can't explain, a reasoning step you can't follow, a connection you can't make, or a concept you can't apply?</span>
           </div>
-          
-          <!-- Keyword categories row -->
+
           <div id="q2-keywords" class="keywords-row">
             <button type="button" class="keyword-btn" data-q2-cat="meaning">Meaning</button>
             <button type="button" class="keyword-btn" data-q2-cat="logic">Logic</button>
@@ -202,43 +359,84 @@
             <button type="button" class="keyword-btn" data-q2-cat="uncertain">Uncertain</button>
           </div>
 
-          <!-- Progressive Disclosure Container for Q2 -->
-          <div id="q2-sub-options-box" class="sub-options-box" style="display: none;">
-            <!-- Injected dynamically on keyword click -->
-          </div>
+          <div id="q2-sub-options-box" class="sub-options-box" style="display: none;"></div>
+          <div id="q2-selected-tags" class="selected-tags-container"></div>
 
-          <!-- Selected tags display -->
-          <div id="q2-selected-tags" class="selected-tags-container">
-            <!-- Rendered removable tags -->
-          </div>
-
-          <!-- Optional Primary Concern selector if 2 options chosen -->
           <div id="q2-primary-concern-box" class="primary-concern-box" style="display: none;">
-            <span class="primary-concern-label">Which one would you like to address first? (Optional)</span>
-            <div id="q2-primary-concern-options" class="primary-concern-options">
-              <!-- Radio options -->
-            </div>
+            <span class="primary-concern-label">Which one would you like to address first?</span>
+            <div id="q2-primary-concern-options" class="primary-concern-options"></div>
           </div>
         </article>
 
-        <!-- ----------------------------------------------------------
-             QUESTION 3: SEEK HELP (What kind of help would you like?)
-             ---------------------------------------------------------- -->
+        <nav class="stage-nav-row" aria-label="Clarify navigation">
+          <button id="btn-clarify-back" class="btn btn-secondary" type="button">
+            Back to Overview
+          </button>
+          <button id="btn-clarify-next" class="btn btn-primary" type="button">
+            Next: Act →
+          </button>
+        </nav>
+      </section>
+
+      <!-- ============================================================
+           VIEW 5: STAGE 03 — ACT (Strategic Planning & Learning Regulation — 3 Steps)
+           ============================================================ -->
+      <section id="view-act" class="view" aria-labelledby="act-title">
+        <div class="stage-top-bar">
+          <button id="btn-back-top-act" class="back-link" type="button" style="margin-bottom: 0;">
+            ← Back to Overview
+          </button>
+          <span id="save-status-act" class="autosave-indicator" aria-live="polite"></span>
+        </div>
+
+        <div class="detail-header-card">
+          <div class="card-top-row" style="margin-bottom: 6px;">
+            <span id="act-source-badge" class="detail-source-tag">Slides / PPT</span>
+          </div>
+          <h2 id="act-original-note" class="detail-original-note">Slide 12 — Schema Theory</h2>
+        </div>
+
+        <header class="clarify-intro">
+          <div class="card-step-header" style="margin-bottom: 6px;">
+            <span class="step-badge">STAGE 03</span>
+          </div>
+          <h3 id="act-title" class="clarify-title">Act</h3>
+          <p class="clarify-desc">
+            Choose the support you need, prepare your question, and plan how to move forward.
+          </p>
+
+          <!-- Why This Matters (Act) -->
+          <div class="why-matters-inline" data-section="why-this-matters">
+            <button
+              type="button"
+              class="why-matters-inline-btn js-why-toggle"
+              aria-expanded="false"
+              aria-controls="why-panel-act"
+            >
+              <span class="info-icon-circle" aria-hidden="true">i</span>
+              <span>Why This Matters</span>
+              <span class="why-matters-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div id="why-panel-act" class="why-matters-inline-panel" style="display: none;">
+              <p class="why-matters-text">
+                Strategic planning and learning regulation help you choose actions based on your knowledge gap instead of trying approaches without a clear purpose.
+              </p>
+              <div class="why-matters-references" data-future-references="true" hidden></div>
+            </div>
+          </div>
+        </header>
+
+        <!-- STEP 1: What kind of help would you like? (Moved from Clarify) -->
         <article class="reflection-card">
           <div class="card-step-header">
-            <span class="step-badge">STEP 3</span>
+            <span class="step-badge">STEP 1</span>
             <span class="step-guide-pill">Select up to 2</span>
           </div>
           <h4 class="reflection-card-title">What kind of help would you like?</h4>
           <p class="reflection-card-desc">
-            Click a keyword to explore options. You can select up to two help preferences across categories.
+            Think about what kind of support would help you address the gap you identified.
           </p>
-          <div class="reflection-card-subhelper">
-            <span class="subhelper-icon">💡</span>
-            <span>Think about what you would want your teacher or classmates to do to help you.</span>
-          </div>
 
-          <!-- Keyword categories row -->
           <div id="q3-keywords" class="keywords-row">
             <button type="button" class="keyword-btn" data-q3-cat="explain">Explain</button>
             <button type="button" class="keyword-btn" data-q3-cat="example">Example</button>
@@ -247,39 +445,12 @@
             <button type="button" class="keyword-btn" data-q3-cat="check">Check</button>
           </div>
 
-          <!-- Progressive Disclosure Container for Q3 -->
-          <div id="q3-sub-options-box" class="sub-options-box" style="display: none;">
-            <!-- Injected dynamically on keyword click -->
-          </div>
-
-          <!-- Selected Q3 tags display (up to 2) -->
-          <div id="q3-selected-tags" class="selected-tags-container">
-            <!-- Removable tags rendered dynamically -->
-          </div>
+          <div id="q3-sub-options-box" class="sub-options-box" style="display: none;"></div>
+          <div id="q3-selected-tags" class="selected-tags-container"></div>
         </article>
 
-        <!-- ----------------------------------------------------------
-             OTHER WAYS TO GET UNSTUCK (Rule-based recommendations)
-             ---------------------------------------------------------- -->
-        <div id="recommendations-box" class="recommendations-box">
-          <div class="recommendations-header-row">
-            <div class="recommendations-title-group">
-              <span class="rec-icon-badge">💡</span>
-              <h5 class="recommendations-title">Other ways to get unstuck</h5>
-            </div>
-            <span class="rec-tag-pill">Suggested Strategy</span>
-          </div>
-          <div id="recommendations-content">
-            <!-- User choices + helpful strategy recommendations -->
-          </div>
-        </div>
-
-        <!-- ----------------------------------------------------------
-             PREPARE YOUR QUESTION (Collapsible — Hidden by default)
-             点开才会显示帮助提问
-             ---------------------------------------------------------- -->
+        <!-- STEP 2: Prepare Your Question (Collapsed by default, moved from Clarify) -->
         <article class="reflection-card ready-to-ask-card ready-to-ask-collapsible">
-          <!-- Collapsible Header Button -->
           <button
             type="button"
             id="btn-toggle-question-section"
@@ -288,43 +459,41 @@
             aria-controls="question-section-body"
           >
             <div class="collapsible-title-row">
-              <span class="step-badge step-badge-highlight">FINAL STEP</span>
-              <span class="collapsible-chevron" id="question-section-chevron">▸</span>
-              <span class="collapsible-title">Prepare My Question</span>
+              <span class="step-badge step-badge-highlight">STEP 2</span>
+              <span class="collapsible-chevron" id="question-section-chevron" aria-hidden="true">▸</span>
+              <span class="collapsible-title">Prepare Your Question</span>
               <span id="question-saved-indicator" class="question-saved-badge" style="display: none;">✓ Draft saved</span>
             </div>
             <div class="collapsible-cta-indicator">
-              <span class="collapsible-subtext">Click to formulate</span>
               <span class="collapsible-arrow-badge">Open ▾</span>
             </div>
           </button>
 
-          <!-- Collapsible Body (Hidden by default) -->
+          <p class="design-intent-note">
+            <span class="intent-emoji" aria-hidden="true">✍️</span>
+            <span>Try putting your own thoughts into words first before checking hints or system examples.</span>
+          </p>
+
           <div id="question-section-body" class="collapsible-body" style="display: none;">
-            <!-- 5. Question Building Blocks Reminder -->
+            <p class="ready-to-ask-desc">
+              Put your confusion into words so others can understand what you need.
+            </p>
+
             <div class="building-blocks-banner">
               What I know &rarr; What's unclear &rarr; What I need
             </div>
 
-            <!-- 1. Try First Heading & Description -->
             <h4 class="ready-to-ask-title">Ready to ask?</h4>
             <p class="ready-to-ask-desc">
               Try putting your question into your own words. It doesn't have to be perfect!
             </p>
 
-            <!-- Student's Own Question Textarea -->
             <textarea
               id="student-question-textarea"
               class="student-question-textarea"
               placeholder="I want to ask..."
               rows="3"
             ></textarea>
-
-            <div class="student-question-actions">
-              <button id="btn-save-student-question" class="btn btn-primary btn-sm" type="button">
-                Save My Question
-              </button>
-            </div>
 
             <!-- Scaffolding Buttons (Need a hint? / See a sample question) -->
             <div class="scaffolding-toggles-row">
@@ -336,16 +505,14 @@
               </button>
             </div>
 
-            <!-- 2. HINT CONTAINER (Hidden by default) -->
+            <!-- HINT CONTAINER (Hidden by default) -->
             <div id="hint-container" class="hint-container" style="display: none;">
               <h5 class="hint-header">A helpful question often includes:</h5>
-              <div id="hint-sections-list" class="hint-sections">
-                <!-- Injected dynamically: only shows sections student actually provided -->
-              </div>
+              <div id="hint-sections-list" class="hint-sections"></div>
               <p class="hint-footer-note">You can use these notes above to construct your own question.</p>
             </div>
 
-            <!-- 3. SAMPLE QUESTION CONTAINER (Hidden by default) -->
+            <!-- SAMPLE QUESTION CONTAINER (Hidden by default) -->
             <div id="sample-question-container" class="sample-question-container" style="display: none;">
               <div class="sample-question-header">
                 <span class="sample-badge">Sample Question</span>
@@ -356,22 +523,374 @@
               <p class="sample-inspiration-note">
                 Use this as inspiration. You can change it to sound like you.
               </p>
-              <div id="sample-question-text" class="sample-question-text">
-                <!-- Dynamically generated rule-based sample -->
-              </div>
+              <div id="sample-question-text" class="sample-question-text"></div>
             </div>
           </div>
         </article>
 
-        <!-- Bottom Actions (Delete card) -->
-        <div class="detail-bottom-row">
-          <button id="btn-delete-confusion" class="btn btn-danger btn-sm" type="button">
-            Delete this confusion
+        <!-- STEP 3: Which strategies will you try? -->
+        <article class="reflection-card">
+          <div class="card-step-header">
+            <span class="step-badge">STEP 3</span>
+          </div>
+          <h4 class="reflection-card-title">Which strategies will you try?</h4>
+          <p class="reflection-card-desc">
+            These are the strategies you plan to try, not necessarily the ones you'll actually use.
+          </p>
+
+          <div id="act-planned-options" class="option-stack">
+            <label class="checkbox-card-row">
+              <input type="checkbox" value="Ask a teacher or classmate." />
+              <span>Ask a teacher or classmate.</span>
+            </label>
+            <label class="checkbox-card-row">
+              <input type="checkbox" value="Ask AI." />
+              <span>Ask AI.</span>
+            </label>
+            <label class="checkbox-card-row">
+              <input type="checkbox" value="Review learning materials." />
+              <span>Review learning materials.</span>
+            </label>
+            <label class="checkbox-card-row">
+              <input type="checkbox" value="Practice independently." />
+              <span>Practice independently.</span>
+            </label>
+            <label class="checkbox-card-row">
+              <input type="checkbox" value="Other." />
+              <span>Other.</span>
+            </label>
+          </div>
+
+          <p id="act-plan-updated-note" class="plan-updated-note" style="display: none;"></p>
+
+          <!-- Subtle Reference Suggestions (Moved into Step 3, after user's own selection) -->
+          <div id="recommendations-box" class="subtle-reference-box">
+            <div class="subtle-reference-header">
+              <span class="subtle-reference-title">
+                <span aria-hidden="true">🧭</span>
+                <span>Other ways to get unstuck</span>
+              </span>
+              <span class="subtle-reference-tag">Reference only · Not a required step</span>
+            </div>
+            <div id="recommendations-content" class="subtle-reference-body">
+              <!-- Populated dynamically from Clarify/Help choices -->
+            </div>
+          </div>
+        </article>
+
+        <nav class="stage-nav-row" aria-label="Act navigation">
+          <button id="btn-act-back" class="btn btn-secondary" type="button">
+            Back to Overview
           </button>
-          <button id="btn-done-detail" class="btn btn-secondary btn-sm" type="button">
-            Done / Back to Home
+          <button id="btn-act-next" class="btn btn-primary" type="button">
+            Next: Reflect →
           </button>
+        </nav>
+      </section>
+
+      <!-- ============================================================
+           VIEW 6: STAGE 04 — REFLECT (Evaluation & Adaptation — 3 Steps)
+           ============================================================ -->
+      <section id="view-reflect" class="view" aria-labelledby="reflect-title">
+        <div class="stage-top-bar">
+          <button id="btn-back-top-reflect" class="back-link" type="button" style="margin-bottom: 0;">
+            ← Back to Overview
+          </button>
+          <span id="save-status-reflect" class="autosave-indicator" aria-live="polite"></span>
         </div>
+
+        <div class="detail-header-card">
+          <div class="card-top-row" style="margin-bottom: 6px;">
+            <span id="reflect-source-badge" class="detail-source-tag">Slides / PPT</span>
+          </div>
+          <h2 id="reflect-original-note" class="detail-original-note">Slide 12 — Schema Theory</h2>
+        </div>
+
+        <header class="clarify-intro">
+          <div class="card-step-header" style="margin-bottom: 6px;">
+            <span class="step-badge">STAGE 04</span>
+          </div>
+          <h3 id="reflect-title" class="clarify-title">Reflect</h3>
+          <p class="clarify-desc">
+            Look back at what you actually tried, evaluate what helped, and decide what to do next.
+          </p>
+
+          <!-- Why This Matters (Reflect) -->
+          <div class="why-matters-inline" data-section="why-this-matters">
+            <button
+              type="button"
+              class="why-matters-inline-btn js-why-toggle"
+              aria-expanded="false"
+              aria-controls="why-panel-reflect"
+            >
+              <span class="info-icon-circle" aria-hidden="true">i</span>
+              <span>Why This Matters</span>
+              <span class="why-matters-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div id="why-panel-reflect" class="why-matters-inline-panel" style="display: none;">
+              <p class="why-matters-text">
+                Evaluation and adaptation help you recognize which strategies were useful and adjust your learning decisions based on the results.
+              </p>
+              <div class="why-matters-references" data-future-references="true" hidden></div>
+            </div>
+          </div>
+        </header>
+
+        <!-- STEP 1: Which strategies did you actually use, and which helped? -->
+        <article class="reflection-card">
+          <div class="card-step-header">
+            <span class="step-badge">STEP 1</span>
+          </div>
+          <h4 class="reflection-card-title">Which strategies did you actually use, and which helped?</h4>
+          <p class="reflection-card-desc">
+            Select what you really tried, even if it wasn't part of your original plan. Then identify which approaches helped you most.
+          </p>
+
+          <div class="reflect-matrix-header">
+            <span>A. Actually Used</span>
+            <span>B. Helped Me</span>
+          </div>
+
+          <div id="reflect-strategy-matrix" class="reflect-matrix">
+            <!-- Dynamic 5-strategy rows rendered via script.js -->
+          </div>
+
+          <label class="checkbox-card-row reflect-none-helped">
+            <input type="checkbox" id="reflect-none-helped-checkbox" />
+            <span>None of these helped</span>
+          </label>
+        </article>
+
+        <!-- STEP 2: How much time did you spend? -->
+        <article class="reflection-card">
+          <div class="card-step-header">
+            <span class="step-badge">STEP 2</span>
+          </div>
+          <h4 class="reflection-card-title">How much time did you spend?</h4>
+          <p class="reflection-card-desc">
+            Estimate the time you actively spent working on this confusion, not the time since you first recorded it.
+          </p>
+
+          <div id="reflect-time-options" class="option-stack">
+            <button type="button" class="sub-option-btn" data-time="Less than 30 minutes.">
+              Less than 30 minutes.
+            </button>
+            <button type="button" class="sub-option-btn" data-time="30 minutes to 2 hours.">
+              30 minutes to 2 hours.
+            </button>
+            <button type="button" class="sub-option-btn" data-time="More than 2 hours.">
+              More than 2 hours.
+            </button>
+            <button type="button" class="sub-option-btn" data-time="Not sure.">
+              Not sure.
+            </button>
+          </div>
+        </article>
+
+        <!-- STEP 3: What would you do differently next? -->
+        <article class="reflection-card">
+          <div class="card-step-header">
+            <span class="step-badge">STEP 3</span>
+          </div>
+          <h4 class="reflection-card-title">What would you do differently next?</h4>
+          <p class="reflection-card-desc">
+            Use what you've learned to decide whether to change your approach, revisit the knowledge gap, or continue practicing.
+          </p>
+
+          <div id="reflect-decision-options" class="option-stack">
+            <button type="button" class="sub-option-btn" data-decision="Try another strategy.">
+              Try another strategy.
+            </button>
+            <button type="button" class="sub-option-btn" data-decision="Rethink my question.">
+              Rethink my question.
+            </button>
+            <button type="button" class="sub-option-btn" data-decision="Continue practicing.">
+              Continue practicing.
+            </button>
+            <button type="button" class="sub-option-btn" data-decision="Nothing for now.">
+              Nothing for now.
+            </button>
+          </div>
+
+          <!-- Contextual non-redirecting link when Try another strategy / Rethink my question is selected -->
+          <div id="reflect-contextual-link-box" class="contextual-jump-box" style="display: none;">
+            <button type="button" id="btn-reflect-contextual-jump" class="btn btn-secondary btn-sm"></button>
+          </div>
+        </article>
+
+        <nav class="stage-nav-row" aria-label="Reflect navigation">
+          <button id="btn-reflect-back" class="btn btn-secondary" type="button">
+            Back to Overview
+          </button>
+          <button id="btn-reflect-next" class="btn btn-primary" type="button">
+            Next: Understanding Check →
+          </button>
+        </nav>
+      </section>
+
+      <!-- ============================================================
+           VIEW 7: UNDERSTANDING CHECK (Separate Status Screen)
+           ============================================================ -->
+      <section id="view-understanding" class="view" aria-labelledby="understanding-title">
+        <div class="stage-top-bar">
+          <button id="btn-back-top-understanding" class="back-link" type="button" style="margin-bottom: 0;">
+            ← Back to Overview
+          </button>
+          <span id="save-status-understanding" class="autosave-indicator" aria-live="polite"></span>
+        </div>
+
+        <div class="detail-header-card">
+          <div class="card-top-row" style="margin-bottom: 6px;">
+            <span id="understanding-source-badge" class="detail-source-tag">Slides / PPT</span>
+          </div>
+          <h2 id="understanding-original-note" class="detail-original-note">Slide 12 — Schema Theory</h2>
+        </div>
+
+        <header class="clarify-intro">
+          <h3 id="understanding-title" class="clarify-title">Understanding Check</h3>
+          <p class="clarify-desc">
+            Check where your understanding stands and decide whether to continue, adjust, or revisit later.
+          </p>
+
+          <!-- Why This Matters (Understanding Check) -->
+          <div class="why-matters-inline" data-section="why-this-matters">
+            <button
+              type="button"
+              class="why-matters-inline-btn js-why-toggle"
+              aria-expanded="false"
+              aria-controls="why-panel-understanding"
+            >
+              <span class="info-icon-circle" aria-hidden="true">i</span>
+              <span>Why This Matters</span>
+              <span class="why-matters-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div id="why-panel-understanding" class="why-matters-inline-panel" style="display: none;">
+              <p class="why-matters-text">
+                Understanding can change over time. Checking it again helps you monitor what you know and recognize when further learning may be useful.
+              </p>
+              <div class="why-matters-references" data-future-references="true" hidden></div>
+            </div>
+          </div>
+        </header>
+
+        <article class="reflection-card">
+          <h4 class="reflection-card-title">Where is your understanding now?</h4>
+
+          <div id="understanding-options" class="option-stack" style="margin-top: 14px;">
+            <button type="button" class="sub-option-btn" data-understanding="Still Confused">
+              Still Confused.
+            </button>
+            <button type="button" class="sub-option-btn" data-understanding="Partially Understood">
+              Partially Understood.
+            </button>
+            <button type="button" class="sub-option-btn" data-understanding="Understood">
+              Understood.
+            </button>
+          </div>
+
+          <!-- When Understood is selected -->
+          <div id="understanding-understood-panel" class="understanding-next-panel" style="display: none;">
+            <p id="understanding-recorded-date-text" class="understanding-date-note"></p>
+          </div>
+
+          <!-- When Partially Understood or Still Confused is selected -->
+          <div id="understanding-move-forward-panel" class="understanding-next-panel" style="display: none;">
+            <h5 class="understanding-next-heading">What would help you move forward?</h5>
+            <div class="next-choice-grid">
+              <button type="button" id="btn-move-try-another" class="next-choice-card">
+                <span class="next-choice-title">Try Another Way</span>
+                <span class="next-choice-desc">Explore a different learning strategy.</span>
+              </button>
+              <button type="button" id="btn-move-rethink-question" class="next-choice-card">
+                <span class="next-choice-title">Rethink My Question</span>
+                <span class="next-choice-desc">Revisit the knowledge gap you identified.</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Lightweight Understanding History -->
+        <div id="understanding-history-card" class="collapsible-history-box" style="display: none;">
+          <button
+            type="button"
+            id="btn-toggle-u-history"
+            class="why-matters-toggle"
+            aria-expanded="false"
+            aria-controls="u-history-list"
+          >
+            <span class="why-matters-label">Understanding History</span>
+            <span class="why-matters-chevron" id="u-history-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div id="u-history-list" class="history-items-list" style="display: none;"></div>
+        </div>
+
+        <nav class="stage-nav-row" aria-label="Understanding Check navigation">
+          <button id="btn-understanding-overview" class="btn btn-primary btn-block" type="button">
+            Back to Overview
+          </button>
+        </nav>
+      </section>
+
+      <!-- ============================================================
+           VIEW 8: QUICK REVISIT (Resume and Review)
+           ============================================================ -->
+      <section id="view-revisit" class="view" aria-labelledby="revisit-title">
+        <button id="btn-back-from-revisit" class="back-link" type="button">
+          ← Back to Overview
+        </button>
+
+        <header class="app-header" style="margin-bottom: 20px;">
+          <div class="revisit-title-row">
+            <h2 id="revisit-title" class="app-title">Quick Revisit</h2>
+            <button
+              type="button"
+              id="btn-toggle-revisit-info"
+              class="info-icon-btn"
+              aria-expanded="false"
+              aria-controls="revisit-info-box"
+              aria-label="About Quick Revisit"
+            >
+              <span class="info-icon-circle" aria-hidden="true">i</span>
+            </button>
+          </div>
+          <p class="app-subtitle">See where you left off, what you've tried, and what to do next.</p>
+
+          <div id="revisit-info-box" class="revisit-info-box" style="display: none;">
+            Use this space to refresh your memory or pick up an unfinished question without starting over.
+          </div>
+        </header>
+
+        <!-- Learning Snapshot -->
+        <article class="card snapshot-card">
+          <h3 class="snapshot-heading">Your Learning Snapshot</h3>
+          <dl id="revisit-snapshot-list" class="snapshot-list">
+            <!-- Populated from saved data only -->
+          </dl>
+        </article>
+
+        <!-- Collapsed Learning History -->
+        <div class="collapsible-history-box" style="margin-top: 16px;">
+          <button
+            type="button"
+            id="btn-toggle-learning-history"
+            class="why-matters-toggle"
+            aria-expanded="false"
+            aria-controls="learning-history-list"
+          >
+            <span class="why-matters-label">View Learning History</span>
+            <span id="learning-history-chevron" class="why-matters-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div id="learning-history-list" class="history-items-list" style="display: none;"></div>
+        </div>
+
+        <nav class="stage-nav-row" aria-label="Quick Revisit navigation">
+          <button type="button" id="btn-revisit-overview" class="btn btn-secondary">
+            Back to Overview
+          </button>
+          <button type="button" id="btn-revisit-continue" class="btn btn-primary">
+            Continue Learning →
+          </button>
+        </nav>
       </section>
 
     </div>
@@ -398,7 +917,7 @@
 
     <!-- Toast Notification -->
     <div id="app-toast" class="toast" role="status" aria-live="polite">
-      Question copied to clipboard!
+      Saved!
     </div>
 
     <!-- Vanilla JavaScript Entry Point -->

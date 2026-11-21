@@ -1374,12 +1374,913 @@ button {
   font-style: normal;
 }
 
+/* ==========================================================================
+   V2 EXTENSIONS: PROGRESS INDICATOR, WORKSPACE, ACT, REFLECT, CHECK, REVISIT
+   ========================================================================== */
+
+/* Visible keyboard focus states across interactive elements */
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.btn-block {
+  width: 100%;
+  min-height: 44px;
+}
+
+.stage-header {
+  margin-bottom: 20px;
+}
+
+.stage-header .step-badge {
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+/* Homepage Card: Understanding Status + Understood Date */
+.card-status-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.card-understood-date {
+  font-size: 11px;
+  color: var(--status-resolved-text);
+  font-weight: 500;
+}
+
+/* Homepage Card: Compact 4-stage Progress Indicator */
+.card-progress-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-color);
+}
+
+.progress-stage-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.progress-stage-pill.done {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.progress-stage-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  border: 1.5px dashed var(--text-light);
+  color: var(--text-light);
+  flex-shrink: 0;
+}
+
+.progress-stage-pill.done .progress-stage-icon {
+  background-color: var(--status-resolved-bg);
+  border: 1.5px solid #34d399;
+  color: var(--status-resolved-text);
+}
+
+.progress-arrow {
+  font-size: 11px;
+  color: var(--text-light);
+}
+
+/* Workspace: Clickable Understanding Status Card */
+.workspace-status-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 56px;
+  padding: 14px 18px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+  margin-bottom: 24px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.workspace-status-card:hover {
+  border-color: #d1c7bc;
+  box-shadow: var(--shadow-md);
+}
+
+.workspace-status-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.workspace-status-heading {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.workspace-status-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.workspace-status-date {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.workspace-status-arrow {
+  font-size: 20px;
+  color: var(--text-light);
+  line-height: 1;
+}
+
+/* Workspace: Your Learning Journey */
+.workspace-journey-section {
+  margin-bottom: 24px;
+}
+
+.workspace-section-header {
+  margin-bottom: 12px;
+}
+
+.workspace-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.workspace-stages-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.stage-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  min-height: 92px;
+  padding: 14px 12px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.stage-tile:hover {
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.stage-tile.completed {
+  border-color: #bbf7d0;
+  background-color: #fcfefd;
+}
+
+.stage-tile-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.stage-num {
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--accent-text);
+  background-color: var(--accent-subtle);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.stage-check-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px dashed var(--text-light);
+  color: transparent;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.stage-tile.completed .stage-check-icon {
+  background-color: var(--status-resolved-bg);
+  border: 1.5px solid #34d399;
+  color: var(--status-resolved-text);
+}
+
+.stage-tile-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.25;
+}
+
+.stage-tile-sub {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  line-height: 1.35;
+}
+
+.workspace-journey-helper {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 10px;
+  margin-bottom: 16px;
+  line-height: 1.45;
+}
+
+.workspace-actions-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Why This Matters & Collapsible History Containers */
+.why-matters-box,
+.collapsible-history-box {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 4px 16px;
+}
+
+.why-matters-toggle {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: left;
+}
+
+.why-matters-toggle:hover {
+  color: var(--text-main);
+}
+
+.why-matters-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.why-matters-chevron {
+  font-size: 13px;
+  transition: transform 0.15s ease;
+}
+
+.why-matters-chevron.open {
+  transform: rotate(180deg);
+}
+
+.why-matters-panel {
+  padding: 8px 0 14px;
+  border-top: 1px dashed var(--border-color);
+}
+
+.why-matters-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.why-matters-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.why-matters-item strong {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+/* Option Stack (Act, Reflect, Understanding Check) */
+.option-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option-stack .sub-option-btn {
+  min-height: 44px;
+}
+
+/* Act: Attempt Cards & Collapsed Older History */
+.act-attempt-card {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-left: 4px solid var(--accent-primary);
+}
+
+.act-attempt-strategy {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-top: 4px;
+}
+
+.act-attempt-note {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.45;
+}
+
+.act-reflection-summary {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: var(--bg-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  color: var(--text-main);
+}
+
+.act-attempt-actions {
+  margin-top: 14px;
+}
+
+.history-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 0 14px;
+  border-top: 1px dashed var(--border-color);
+}
+
+.history-entry {
+  padding: 10px 12px;
+  background-color: var(--bg-page);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.history-entry-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.history-entry-type {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent-text);
+}
+
+.history-entry-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.history-entry-note {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* Reflect Stage */
+.reflect-target-card {
+  background-color: #fffdfa;
+  border: 1px solid #fde68a;
+}
+
+.reflect-switcher {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.reflect-switcher-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.reflect-select {
+  width: auto;
+  min-width: 200px;
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+.reflect-reason-section {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border-color);
+}
+
+.reflect-suggestion-box {
+  margin-top: 14px;
+  margin-bottom: 0;
+  display: flex;
+}
+
+/* Understanding Check */
+.understanding-next-panel {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border-color);
+}
+
+.understanding-date-note {
+  font-size: 13.5px;
+  color: var(--status-resolved-text);
+  background-color: var(--status-resolved-bg);
+  border: 1px solid #a7f3d0;
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-weight: 500;
+}
+
+.understanding-next-heading {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+.next-choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.next-choice-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-height: 44px;
+  padding: 14px;
+  text-align: left;
+  background-color: var(--bg-page);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.next-choice-card:hover {
+  border-color: var(--accent-primary);
+  background-color: #fffdfa;
+}
+
+.next-choice-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.next-choice-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+/* Quick Revisit */
+.revisit-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 50%;
+}
+
+.info-icon-btn:hover .info-icon-circle {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.revisit-info-box {
+  margin-top: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--accent-primary);
+  border-radius: var(--radius-sm);
+  line-height: 1.45;
+}
+
+.snapshot-heading {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 14px;
+}
+
+.snapshot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.snapshot-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.snapshot-row:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.snapshot-term {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.snapshot-val {
+  font-size: 14px;
+  color: var(--text-main);
+  line-height: 1.45;
+}
+
+.snapshot-val.muted {
+  color: var(--text-light);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   V2 GUIDED LEARNING FLOW ADDITIONS
+   ========================================================================== */
+
+/* Top bar with Back link + subtle Autosave indicator */
+.stage-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.autosave-indicator {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-light);
+  transition: color 0.15s ease;
+  white-space: nowrap;
+}
+
+.autosave-indicator.is-saved {
+  color: var(--status-resolved-text);
+}
+
+/* Unified Bottom Stage Navigation (Back to Overview | Next: ...) */
+.stage-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.stage-nav-row .btn {
+  min-height: 44px;
+}
+
+/* Inline Why This Matters below Stage Heading / Intro */
+.why-matters-inline {
+  margin-top: 10px;
+}
+
+.why-matters-inline-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 4px 2px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+}
+
+.why-matters-inline-btn:hover {
+  color: var(--text-main);
+}
+
+.why-matters-inline-panel {
+  margin-top: 6px;
+  padding: 10px 14px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--accent-primary);
+  border-radius: var(--radius-sm);
+}
+
+.why-matters-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* Act Step 2: Independent-thinking design intent caption */
+.design-intent-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: var(--bg-page);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.intent-emoji {
+  font-size: 13px;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+
+/* Checkbox Card Rows (Act Step 3 planned strategies & Reflect None helped) */
+.checkbox-card-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 14px;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.checkbox-card-row:hover {
+  background-color: var(--bg-page);
+  border-color: #d1c7bc;
+}
+
+.checkbox-card-row.checked {
+  background-color: #fffbeb;
+  border-color: var(--accent-primary);
+  color: #78350f;
+  font-weight: 600;
+}
+
+.checkbox-card-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.plan-updated-note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+/* Subtle Reference Suggestions inside Act Step 3 (low-emphasis) */
+.subtle-reference-box {
+  margin-top: 18px;
+  padding: 12px 14px;
+  background-color: var(--bg-page);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.subtle-reference-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.subtle-reference-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.subtle-reference-tag {
+  font-size: 11px;
+  color: var(--text-light);
+  background-color: var(--bg-subtle);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.subtle-reference-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.subtle-ref-item {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.subtle-ref-item strong {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* Reflect Step 1: 2-part Strategy Matrix (Actually Used -> Helped Me) */
+.reflect-matrix-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.reflect-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reflect-matrix-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 46px;
+  padding: 8px 12px;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.reflect-matrix-row.is-used {
+  background-color: #fffdf7;
+  border-color: #fcd34d;
+}
+
+.reflect-used-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--text-main);
+  cursor: pointer;
+  flex: 1;
+  min-height: 30px;
+}
+
+.reflect-matrix-row.is-used .reflect-used-label {
+  font-weight: 600;
+}
+
+.reflect-used-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.reflect-helped-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 34px;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.reflect-helped-btn:hover:not(:disabled) {
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+}
+
+.reflect-helped-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background-color: var(--bg-subtle);
+}
+
+.reflect-helped-btn.selected {
+  background-color: var(--status-resolved-bg);
+  border-color: #34d399;
+  color: var(--status-resolved-text);
+}
+
+.reflect-none-helped {
+  margin-top: 12px;
+}
+
+/* Reflect Step 3: Contextual Jump Link */
+.contextual-jump-box {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-color);
+}
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
   .app-container {
     padding: 20px 16px 60px;
   }
-  
+
   .brand-row {
     flex-direction: column;
     align-items: stretch;
@@ -1392,6 +2293,33 @@ button {
 
   .category-pill-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .workspace-stages-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .next-choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stage-nav-row {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .stage-nav-row .btn {
+    width: 100%;
+  }
+
+  .reflect-matrix-row {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px 12px;
+  }
+
+  .reflect-helped-btn {
+    align-self: flex-end;
   }
 
   .form-actions {
@@ -1408,5 +2336,11 @@ button {
 
   .question-actions-row .btn {
     width: 100%;
+  }
+
+  .detail-bottom-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
   }
 }

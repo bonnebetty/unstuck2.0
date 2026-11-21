@@ -1,0 +1,1071 @@
+# Unstuck V2 — Complete Guided Learning Flow
+
+## Project Goal
+
+You are updating my existing web application, **Unstuck**, a lightweight learning support tool that helps students identify knowledge gaps, make learning decisions, evaluate strategies, and regulate their learning.
+
+**This is a functional update, NOT a visual redesign.**
+
+The updated prototype must achieve two goals:
+
+1. **Student experience:** Provide a complete, intuitive, low-pressure learning process that students can follow, pause, revisit, and adjust.
+2. **Academic demonstration:** Make the instructional purpose of each feature understandable to my project teammates, who will use the prototype to identify relevant learning theories and write a literature review.
+
+The interface should communicate its educational intentions through concise, meaningful instructions rather than lengthy academic explanations.
+
+Do not invent academic citations. We will add verified references later.
+
+---
+
+# PART 1 — CRITICAL IMPLEMENTATION RULES
+
+## 1. Preserve the Existing Design
+
+Before editing, inspect the current HTML, CSS, JavaScript, components, navigation, and localStorage schema.
+
+Preserve the existing:
+
+- Color palette and visual atmosphere.
+- Typography, font sizes, and hierarchy.
+- Page backgrounds.
+- Card styles, borders, shadows, and corner radius.
+- Buttons and icons.
+- Content width and page margins.
+- Responsive layout.
+- Existing interaction patterns where still appropriate.
+
+**Do not redesign the website.**
+
+Do not introduce a new dashboard, sidebar, visual theme, decorative illustrations, or complex animations.
+
+Reuse existing CSS classes and variables whenever possible.
+
+For new components, match the existing design system.
+
+Maintain consistent spacing throughout the application. Use existing spacing values first; only use approximate defaults of 8px for small gaps, 12–16px for related elements, and 24px for major sections if no existing equivalent is available.
+
+Do not rewrite unrelated functionality.
+
+## 2. Keep the Technology Simple
+
+Continue using the current HTML, CSS, JavaScript, and localStorage architecture.
+
+Do not add:
+
+- External APIs.
+- AI-generated responses.
+- Authentication.
+- Databases.
+- New frameworks.
+- Automated learning diagnosis.
+- Complex learning analytics.
+- Notifications or reminders.
+
+The prototype should remain easy to maintain, share, and demonstrate.
+
+---
+
+# PART 2 — INFORMATION ARCHITECTURE
+
+## 3. Updated Learning Structure
+
+The learning process has four stages:
+
+**Capture → Clarify → Act → Reflect**
+
+Each stage must open as an independent, focused screen or view.
+
+However, the four screens must also function as a connected guided flow.
+
+Students can either:
+
+- Follow the sequence using Next buttons.
+- Open any stage directly from the workspace overview.
+- Leave and return later without losing progress.
+
+Do not enforce mandatory sequential completion.
+
+Create two additional optional screens:
+
+**Understanding Check**
+- Records current self-assessed understanding.
+- Allows students to decide what to do next.
+- Does not count as a fifth learning activity.
+
+**Quick Revisit**
+- Summarizes previous learning progress.
+- Helps students resume an unfinished confusion or review a previously understood topic.
+- Does not count as a learning stage.
+
+Suggested structure:
+
+My Confusions
+→ Individual Confusion Workspace
+→ Capture
+→ Clarify
+→ Act
+→ Reflect
+→ Understanding Check
+
+Quick Revisit is accessible from the individual workspace.
+
+Understanding Check can also be opened directly from the workspace.
+
+---
+
+# PART 3 — NAVIGATION AND AUTOSAVE
+
+## 4. Unified Navigation
+
+Remove redundant navigation buttons such as:
+
+- Save & Return.
+- Save and Continue.
+- I've Tried This.
+- Reflect on This Attempt.
+- Other buttons that duplicate navigation or saving behavior.
+
+**All stages must use automatic saving.**
+
+Use only two main navigation buttons at the bottom of each stage:
+
+Left:
+**Back to Overview**
+
+Right:
+**Next: [Next Stage]**
+
+Navigation mapping:
+
+- Capture → Next: Clarify
+- Clarify → Next: Act
+- Act → Next: Reflect
+- Reflect → Next: Understanding Check
+
+Understanding Check should provide a simple way to return to the workspace.
+
+If a student remains confused, offer links back to Act or Clarify.
+
+Back to Overview always returns to the individual confusion workspace, not the global homepage.
+
+Avoid adding multiple competing navigation buttons.
+
+## 5. Autosave Behavior
+
+Automatically save:
+
+- Text inputs.
+- Selected options.
+- Clarification responses.
+- Question drafts.
+- Strategy preferences.
+- Actual strategies used.
+- Reflection responses.
+- Understanding status.
+- Relevant timestamps.
+
+For text fields, use a short debounce to avoid excessive localStorage writes.
+
+For selections, save immediately.
+
+Ensure the latest changes are saved before navigation or browser refresh.
+
+Show a subtle "Saved" indicator if useful, but do not introduce distracting notifications.
+
+Students must be able to leave a page without manually saving.
+
+**Important:** Autosave does not mean a stage is automatically completed.
+
+A stage should only show a completion checkmark when the relevant learning activity has meaningful saved content.
+
+---
+
+# PART 4 — WRITING AND MICROCOPY PRINCIPLES
+
+## 6. Every Sentence Must Add Value
+
+Review all existing instructional text across the website.
+
+Use this principle:
+
+**Every sentence must guide an action, explain its purpose, or support reflection.**
+
+Avoid descriptions that merely repeat the heading.
+
+Examples of redundant text to remove:
+
+- "Where did you get confused?" followed by "Pick one source."
+- "Which strategy will you try?" followed by "Choose a strategy."
+- Repeated labels such as "Suggested Approach" and "Suggested Strategy" for the same information.
+
+Do not add explanatory text below every heading automatically.
+
+Only retain descriptions that provide meaningful new information.
+
+Use concise, natural, student-friendly English.
+
+Avoid overly academic language in the main interaction.
+
+Avoid language that makes students feel pressured to complete every field.
+
+Do not prominently label every question as "Optional."
+
+Students should simply be able to leave nonessential fields blank.
+
+## 7. Distinguish Instructions from Theory
+
+Use two levels of explanation:
+
+**Level 1 — Visible instructional text**
+
+A short sentence beneath each major heading or guiding question explaining what the student is doing and why.
+
+**Level 2 — Expandable "Why This Matters"**
+
+A small information icon that explains the educational purpose of the stage.
+
+Keep academic terminology primarily inside the expandable explanation.
+
+Do not fill the main page with theoretical paragraphs.
+
+---
+
+# PART 5 — CAPTURE
+
+## 8. Capture — Record Confusion
+
+Educational purpose:
+Preserve a moment of confusion before it is forgotten, even when the student does not have time to explain it fully.
+
+Keep the existing Capture interface and source categories.
+
+### Page heading
+
+**Capture**
+
+Replace the current introductory sentence with:
+
+"In class and short on time? Jot down a few keywords now and add details later."
+
+### Source question
+
+**Where did you get confused?**
+
+Keep the existing source choices:
+
+- Teacher's Explanation
+- Slides / PPT
+- Reading
+- Class Discussion
+- Activity / Assignment
+- Other
+
+Remove the redundant helper text:
+
+"Pick one source."
+
+Do not replace it with another unnecessary explanation.
+
+### Confusion note
+
+**Leave yourself a clue**
+
+Use this helper text:
+
+"A keyword, slide number, or short note can help you recall this moment later."
+
+Preserve the existing input field and placeholder.
+
+Keep the short note required when creating a new confusion, but do not require additional details.
+
+Allow students to edit or expand their note later.
+
+### Navigation
+
+Back to Overview | Next: Clarify
+
+### Why This Matters
+
+Place a small expandable information icon directly below the Capture heading or its introductory text.
+
+Label:
+
+"Why This Matters"
+
+Collapsed by default.
+
+Expanded text:
+
+"Capturing confusion early preserves information you can return to later, even when you are not ready to explain the problem."
+
+---
+
+# PART 6 — CLARIFY
+
+## 9. Clarify — Metacognitive Monitoring
+
+Educational purpose:
+Help students identify what they already understand and locate a specific knowledge gap.
+
+### Page heading
+
+**Clarify**
+
+Visible instruction:
+
+"Identify what you know and pinpoint where your understanding breaks down."
+
+### Step 1 — What do you understand so far?
+
+Preserve the existing response field.
+
+Remove the option:
+
+"I'm not sure where to start."
+
+Do not replace it with another explicit skip option.
+
+Remove prominent "Optional" labels, but allow students to leave the field blank.
+
+Update the lightbulb hint to:
+
+"Start with one small thing you know, such as a related concept, an opposite idea, or an example you've seen."
+
+This hint should help students activate prior knowledge rather than simply telling them to write something.
+
+### Step 2 — Where are you getting stuck?
+
+Preserve the existing five categories:
+
+- Meaning
+- Logic
+- Connection
+- Application
+- Uncertain
+
+Preserve existing expandable subcategories and selection limits.
+
+Replace the current vague lightbulb hint with:
+
+"Look for the missing piece: Is it a term you can't explain, a reasoning step you can't follow, a connection you can't make, or a concept you can't apply?"
+
+Do not use vague language such as:
+
+"You don't need to know why you're confused, just identify what feels unclear."
+
+The new hint must help students distinguish different types of knowledge gaps.
+
+### Remove from Clarify
+
+Move the following existing features to Act:
+
+- What kind of help would you like?
+- Help preference categories.
+- Prepare Your Question.
+- Try First.
+- Need a Hint?
+- See a Sample Question.
+- Existing question-writing guidance and templates.
+
+Do not delete these features or their saved data.
+
+Clarify now contains only two guided steps.
+
+### Navigation
+
+Back to Overview | Next: Act
+
+### Why This Matters
+
+Expanded text:
+
+"Metacognitive monitoring helps you recognize what you understand and identify the specific gaps that need attention."
+
+---
+
+# PART 7 — ACT
+
+## 10. Act — Strategic Planning & Learning Regulation
+
+Educational purpose:
+Help students turn a recognized knowledge gap into an intentional learning decision.
+
+### Page heading
+
+**Act**
+
+Visible instruction:
+
+"Choose the support you need, prepare your question, and plan how to move forward."
+
+The Act screen should contain three numbered steps, visually consistent with the existing Clarify step design.
+
+Do not create separate pages for these three steps.
+
+### Step 1 — What kind of help would you like?
+
+Move the existing help preference question from Clarify.
+
+Preserve the existing categories:
+
+- Explain
+- Example
+- Connect
+- Guide
+- Check
+
+Preserve existing selection rules and descriptions.
+
+Use this helper text:
+
+"Think about what kind of support would help you address the gap you identified."
+
+This question prepares students to articulate what they need when seeking help.
+
+It does not determine which learning strategy they must use.
+
+### Step 2 — Prepare Your Question
+
+Move the complete existing question preparation feature from Clarify.
+
+Preserve:
+
+- Try First.
+- Need a Hint?
+- See a Sample Question.
+- Existing rule-based question templates.
+- Student-written editable question.
+- Previously saved drafts.
+
+Use this helper text:
+
+"Put your confusion into words so others can understand what you need."
+
+Students should attempt their own question first.
+
+Hints and examples remain available only when requested.
+
+Never automatically replace student-written text with a generated template.
+
+### Step 3 — Which strategies will you try?
+
+This is a new strategic planning section.
+
+Allow multiple selections:
+
+- Ask a teacher or classmate.
+- Ask AI.
+- Review learning materials.
+- Practice independently.
+- Other.
+
+Use checkboxes rather than radio buttons.
+
+Add this helper text:
+
+"These are the strategies you plan to try, not necessarily the ones you'll actually use."
+
+This distinction is essential.
+
+The student's selection represents a **strategy preference or intention**, not evidence that an action has already occurred.
+
+Automatically save the selected strategies and the time the plan was updated.
+
+Do not mark these strategies as completed attempts.
+
+Do not require students to report each attempt immediately.
+
+Students can return and modify their plan later.
+
+### Navigation
+
+Back to Overview | Next: Reflect
+
+### Why This Matters
+
+Expanded text:
+
+"Strategic planning and learning regulation help you choose actions based on your knowledge gap instead of trying approaches without a clear purpose."
+
+---
+
+# PART 8 — REFLECT
+
+## 11. Reflect — Evaluation & Adaptation
+
+Educational purpose:
+Help students compare their planned and actual learning actions, evaluate what helped, and decide how to adjust their learning.
+
+### Page heading
+
+**Reflect**
+
+Visible instruction:
+
+"Look back at what you actually tried, evaluate what helped, and decide what to do next."
+
+Reflect should contain three numbered steps.
+
+Students may complete Reflect immediately or return after several days.
+
+Do not require a reflection after every individual learning attempt.
+
+### Step 1 — Which strategies did you actually use, and which helped?
+
+Display the full list of learning strategies:
+
+- Ask a teacher or classmate.
+- Ask AI.
+- Review learning materials.
+- Practice independently.
+- Other.
+
+**Do not restrict this list to strategies previously selected in Act.**
+
+Students may use strategies they did not originally plan.
+
+Use a two-part interaction:
+
+A. **Actually Used**
+Students select all strategies they genuinely tried.
+
+B. **Helped Me**
+Students indicate which of those strategies they found helpful.
+
+Only strategies marked Actually Used can be marked Helped Me.
+
+If an Actually Used strategy is deselected, remove its Helped Me selection to prevent contradictory data.
+
+Do not automatically assume that a planned strategy was used.
+
+Use this helper text:
+
+"Select what you really tried, even if it wasn't part of your original plan. Then identify which approaches helped you most."
+
+The student can select multiple helpful strategies.
+
+Do not force them to choose one best strategy.
+
+Allow the student to indicate that none helped.
+
+Automatically save all selections.
+
+### Step 2 — How much time did you spend?
+
+Ask about approximate active learning time, not the number of days between Capture and Reflect.
+
+Use simple options:
+
+- Less than 30 minutes.
+- 30 minutes to 2 hours.
+- More than 2 hours.
+- Not sure.
+
+This question is optional.
+
+Helper text:
+
+"Estimate the time you actively spent working on this confusion, not the time since you first recorded it."
+
+Do not use an automatic timer.
+
+Do not calculate learning time from timestamps.
+
+### Step 3 — What would you do differently next?
+
+Provide simple selectable options:
+
+- Try another strategy.
+- Rethink my question.
+- Continue practicing.
+- Nothing for now.
+
+Helper text:
+
+"Use what you've learned to decide whether to change your approach, revisit the knowledge gap, or continue practicing."
+
+This step supports adaptation rather than simply recording outcomes.
+
+Do not force the student to write a long explanation.
+
+If they select Try another strategy, offer a contextual link to Act.
+
+If they select Rethink my question, offer a contextual link to Clarify.
+
+These links should not automatically redirect the student or interrupt the main navigation.
+
+Preserve all previous answers.
+
+### Navigation
+
+Back to Overview | Next: Understanding Check
+
+### Why This Matters
+
+Expanded text:
+
+"Evaluation and adaptation help you recognize which strategies were useful and adjust your learning decisions based on the results."
+
+---
+
+# PART 9 — UNDERSTANDING CHECK
+
+## 12. Understanding Check — Current Understanding
+
+Create a separate screen.
+
+This is not a fifth stage in the learning progress timeline.
+
+Heading:
+
+**Understanding Check**
+
+Visible instruction:
+
+"Check where your understanding stands and decide whether to continue, adjust, or revisit later."
+
+Ask:
+
+**Where is your understanding now?**
+
+Three states:
+
+- Still Confused.
+- Partially Understood.
+- Understood.
+
+Students choose their own status.
+
+Do not infer understanding from the number of completed steps.
+
+### Understood
+
+When selected:
+
+- Automatically save the status.
+- Record the local date and time.
+- Display the understanding date.
+- Preserve previous records.
+
+### Partially Understood / Still Confused
+
+Show:
+
+**What would help you move forward?**
+
+Provide two choices:
+
+**Try Another Way**
+"Explore a different learning strategy."
+→ Act
+
+**Rethink My Question**
+"Revisit the knowledge gap you identified."
+→ Clarify
+
+Also allow students to leave the workspace and return later.
+
+Do not force a choice.
+
+Do not erase or reset earlier steps.
+
+### Understanding History
+
+Keep a lightweight history of explicit understanding assessments and dates.
+
+For example:
+
+Nov 10 — Still Confused  
+Nov 12 — Partially Understood  
+Nov 14 — Understood
+
+If the student later becomes confused again, preserve the earlier Understood event.
+
+Do not automatically assume that older understanding has disappeared.
+
+### Why This Matters
+
+Expanded text:
+
+"Understanding can change over time. Checking it again helps you monitor what you know and recognize when further learning may be useful."
+
+---
+
+# PART 10 — WORKSPACE OVERVIEW
+
+## 13. Individual Confusion Workspace
+
+Preserve the current visual design.
+
+Display:
+
+- Original confusion.
+- Source.
+- Current understanding status.
+- Understanding date, if available.
+- Four-stage learning progress.
+- Quick Revisit access.
+
+The four stages should remain independently clickable:
+
+Capture → Clarify → Act → Reflect
+
+Use checkmarks to indicate recorded learning activity.
+
+Do not use checkmarks to represent mastery.
+
+### Stage Completion Logic
+
+Capture:
+A valid confusion note exists.
+
+Clarify:
+At least one meaningful clarification response or knowledge-gap selection exists.
+
+Act:
+At least one meaningful help preference, question draft, or planned strategy has been recorded.
+
+Reflect:
+The student has recorded at least one actual strategy used and/or a meaningful evaluation or adaptation response.
+
+Do not require every question within a stage to be answered.
+
+Do not mark a stage complete simply because it was opened.
+
+The four stages may all be complete while the student remains Still Confused.
+
+### Understanding Status
+
+Show a separate status badge:
+
+- Still Confused.
+- Partially Understood.
+- Understood.
+
+If no assessment exists, show a neutral "Not Checked Yet" placeholder.
+
+Do not treat this placeholder as a fourth understanding outcome.
+
+### Overview — Why This Matters
+
+At the bottom of the workspace overview, add a small expandable section:
+
+**Why This Matters ⓘ**
+
+Collapsed by default.
+
+Expanded text:
+
+"Unstuck guides you from noticing confusion to identifying knowledge gaps, choosing learning strategies, evaluating what worked, and adjusting your next steps. You can move through the stages at your own pace."
+
+Do not add academic citations yet.
+
+---
+
+# PART 11 — QUICK REVISIT
+
+## 14. Quick Revisit — Resume and Review
+
+Create an optional Quick Revisit screen.
+
+It must support:
+
+- Unfinished learning.
+- Paused learning.
+- Partially understood topics.
+- Previously understood topics.
+
+Heading:
+
+**Quick Revisit**
+
+Visible description:
+
+"See where you left off, what you've tried, and what to do next."
+
+### Expandable Information Icon
+
+Place a small ⓘ beside Quick Revisit.
+
+When expanded, display:
+
+"Use this space to refresh your memory or pick up an unfinished question without starting over."
+
+Use the same visual style as Why This Matters.
+
+### Your Learning Snapshot
+
+Automatically assemble a compact summary from existing saved information.
+
+Include:
+
+- Original confusion.
+- Last meaningful stage.
+- Help preference or planned strategies, if available.
+- Actual strategies used, if available.
+- Strategies marked helpful.
+- Latest reflection decision.
+- Current understanding status.
+- Last activity date.
+- Understanding date, if applicable.
+
+Use actual saved data only.
+
+Do not invent missing learning outcomes.
+
+Do not introduce AI-generated summaries.
+
+### Learning History
+
+Provide a collapsed section:
+
+**View Learning History**
+
+Display available chronological records, including:
+
+- Strategy planning updates.
+- Reflection records.
+- Understanding status changes.
+- Relevant timestamps.
+
+Keep the history lightweight.
+
+Do not create an analytics dashboard.
+
+### Continue Learning
+
+Provide a button:
+
+**Continue Learning**
+
+Return the student to their workspace or last meaningful active stage.
+
+Preserve all previous answers.
+
+Quick Revisit should help students recover context without rereading the entire learning process.
+
+---
+
+# PART 12 — DATA MODEL AND PERSISTENCE
+
+## 15. Update localStorage Safely
+
+Inspect the existing schema before changing it.
+
+Preserve all existing records and saved text.
+
+Extend the current data model to support:
+
+- Clarification responses.
+- Help preferences.
+- Question drafts.
+- Planned strategies.
+- Strategy plan update timestamps.
+- Actually used strategies.
+- Helpful strategies.
+- Approximate learning time.
+- Adaptation decisions.
+- Understanding status.
+- Understanding history.
+- Last meaningful activity.
+- Stage completion evidence.
+
+Suggested conceptual structure:
+
+```javascript
+{
+  id,
+  source,
+  note,
+  createdAt,
+  updatedAt,
+
+  clarify: {
+    priorKnowledge,
+    confusionCategories,
+    confusionDetails
+  },
+
+  act: {
+    helpPreference,
+    questionDraft,
+    plannedStrategies,
+    planUpdatedAt
+  },
+
+  reflect: {
+    actualStrategies,
+    helpfulStrategies,
+    timeSpent,
+    nextDecision,
+    updatedAt
+  },
+
+  understanding: {
+    currentStatus,
+    updatedAt,
+    history: []
+  }
+}
+```
+
+Adapt this to the existing architecture rather than replacing the current schema blindly.
+
+### Important Data Rules
+
+- Planned strategies and actual strategies are separate.
+- Helpful strategies must be a subset of actual strategies.
+- Selecting a planned strategy does not imply it was used.
+- Understanding status is independent of stage completion.
+- All changes persist across browser refreshes.
+- Old records must remain readable.
+- Do not fabricate historical dates during migration.
+
+If the existing application has old resolved/partially resolved statuses, migrate them conservatively without inventing missing information.
+
+---
+
+# PART 13 — ACCESSIBILITY AND USABILITY
+
+## 16. Interaction Requirements
+
+All controls must be:
+
+- Keyboard accessible.
+- Clearly labeled.
+- Visually consistent.
+- Responsive on mobile.
+- Easy to select and deselect.
+- Compatible with autosave.
+
+Use progressive disclosure where appropriate.
+
+Avoid excessive scrolling.
+
+Do not introduce repeated instructions or unnecessary confirmation dialogs.
+
+Students should be able to complete a short learning interaction with minimal effort.
+
+The system must support stopping and returning later.
+
+Do not require students to complete every step before moving forward.
+
+---
+
+# PART 14 — ACADEMIC DESIGN TRANSPARENCY
+
+## 17. Make the Instructional Purpose Visible
+
+This prototype will be shared with teammates who are preparing a literature review.
+
+The educational purpose of each stage should be clear from:
+
+1. The stage title.
+2. The concise introductory instruction.
+3. The guiding questions.
+4. The helper text beneath each question.
+5. The expandable Why This Matters explanation.
+
+Use the following conceptual mapping:
+
+**Capture**
+Preserving moments of confusion and reducing the burden of immediate explanation.
+
+**Clarify**
+Metacognitive Monitoring — identifying existing knowledge and knowledge gaps.
+
+**Act**
+Strategic Planning and Learning Regulation — selecting help preferences, preparing questions, and choosing learning strategies.
+
+**Reflect**
+Evaluation and Adaptation — distinguishing planned and actual actions, evaluating effectiveness, and adjusting future strategies.
+
+**Understanding Check**
+Ongoing monitoring of self-assessed understanding.
+
+**Quick Revisit**
+Recovering learning context, resuming unfinished work, and reviewing previous learning experiences.
+
+These are design intentions, not claims that the interface has already been proven effective.
+
+Do not invent citations or claim that a specific interaction has empirical support unless a verified source is provided.
+
+Keep the student-facing explanations short.
+
+Future versions may include stage-specific academic citations and literature references.
+
+---
+
+# PART 15 — ACCEPTANCE TESTS
+
+## 18. Test the Complete User Journey
+
+Test the following scenarios:
+
+1. A student creates a new confusion during class.
+2. Capture saves the note automatically.
+3. The student clicks Next: Clarify without returning to Overview.
+4. Clarify contains only two guided steps.
+5. The original confusion categories and detailed options still work.
+6. The "I'm not sure where to start" option is removed.
+7. The new lightbulb hints appear correctly.
+8. The student moves directly from Clarify to Act.
+9. Act contains help preference, question preparation, and strategy planning.
+10. Existing question hints and templates still work.
+11. Multiple planned strategies can be selected.
+12. Planned strategies are not treated as completed actions.
+13. The student moves directly to Reflect.
+14. Reflect displays the full strategy list, including strategies not planned in Act.
+15. The student can select multiple actual strategies.
+16. Only actual strategies can be marked helpful.
+17. The student can record approximate learning time.
+18. The student can select an adaptation decision.
+19. The student can leave Reflect unfinished and return later.
+20. Understanding Check records the selected status and date.
+21. Still Confused can coexist with four completed stages.
+22. The student can return to Act or Clarify without losing earlier answers.
+23. Quick Revisit correctly summarizes saved information.
+24. Quick Revisit supports both unfinished and understood topics.
+25. All Why This Matters sections expand and collapse correctly.
+26. Every stage uses autosave.
+27. No redundant Save buttons remain.
+28. All pages preserve the existing visual design.
+29. Existing localStorage records still load.
+30. All changes persist after refreshing the browser.
+
+---
+
+# PART 16 — IMPLEMENTATION WORKFLOW
+
+Before implementing:
+
+1. Inspect the existing project.
+2. Identify reusable components and styles.
+3. Identify current navigation logic.
+4. Identify the current localStorage schema.
+5. Briefly describe the planned changes.
+
+Then implement the update.
+
+Do not rebuild the project from scratch.
+
+After implementation:
+
+- Summarize changed files.
+- Explain the updated navigation.
+- Explain how planned and actual strategies are distinguished.
+- Explain how stage completion differs from understanding status.
+- Report completed tests.
+- Identify any unresolved limitations.
+
+## Final Requirement
+
+The result should be a **fully navigable, coherent functional prototype**, not a collection of disconnected screens.
+
+A student should be able to:
+
+**Capture a confusion → Clarify the gap → Plan a learning strategy → Reflect on actual actions → Assess understanding → Revisit and continue later.**
+
+The design should be simple enough for students to use naturally and clear enough for teammates to understand the instructional reasoning behind every feature.
+
+**Preserve the existing UI. Prioritize clarity, continuity, low cognitive burden, and meaningful instructional guidance over adding more interface elements.**
